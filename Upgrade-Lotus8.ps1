@@ -1,4 +1,4 @@
-﻿#################################################################
+#################################################################
 #                    Upgrade Lotus 8                            # 
 #                                                               #
 #  mathieu chot-plassot    09/02/2016                           #
@@ -176,18 +176,18 @@ Function Restore-Backup($multi){
                     if (Test-Path "$env:SystemDrive\Users\$username"){
                         if (Test-Path "$backupfolder\$item"){
                             Copy-Item "$backupfolder\$item" "$env:SystemDrive\Users\$username\AppData\Local\IBM\Notes\Data" -Recurse -Force        
-                            WriteLogFile "[Restore] $backupfolder\$item a été restauré dans $env:SystemDrive\Users\$username\AppData\Local\IBM\Notes\Data"
-                            {
+                            WriteLogFile "[Restore] $backupfolder\$item a été restauré dans $env:SystemDrive\Users\$username\AppData\Local\IBM\Notes\Data"                           
                         }
                     }
+					}
                 Catch{
                     $ErrorMsg = $_.Exception.Message
                     WriteLogFile "[Critique] Impossible de restaurer les fichiers de Lotus8, Lotus 9 va tout de même être installé:  $ErrorMsg"
                     WriteLogFile "[Info] les fichiers dans $backupfolder devront être restaurés dans le profil utilisateur qui utilise lotus note"
                     }
             }
-        }
-    }
+			}
+		}  
     Elseif($multi -eq 1){
         foreach ($j in $Lotus_users.GetEnumerator()){
             $username = $j.Name
@@ -228,9 +228,9 @@ Function Install-Lotus9(){
             }
         else{
             Show-SystrayNotif -Title “mise a jour de Lotus Note” -MessageType Error `
-            -Message “Une erreur s'est produite lors de la mise a jour de Lotus” `
+            -Message “Une erreur s est produite lors de la mise a jour de Lotus” `
             -Duration 25000 
-            WriteLogFile "Erreur lors de l'installation de Lotus 9, exit code: $ec"
+            WriteLogFile "Erreur lors de l installation de Lotus 9, exit code: $ec"
             }
         }
     Catch{
